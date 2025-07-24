@@ -14,11 +14,8 @@ class Database
         if (!self::$conn) {
             try {
                 self::$conn = new PDO(
-                    "mysql:host=" . self::$host . ";dbname=" . self::$db,
-                    self::$user,
-                    self::$pass
+                    "mysql:host=db;dbname=escola", "root", "123"
                 );
-                self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             } catch (PDOException $e) {
                 die("Erro na conexão: " . $e->getMessage());
             }
