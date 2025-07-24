@@ -26,20 +26,27 @@ class Aluno
     }
 
     // Método de paginação
-    public function getPaged($offset, $limite, $busca = null)
+public function getPaged($offset, $limite, $busca = null)
     {
         if ($busca) {
-            $busca = "%$busca%";
+            $buscaLike = "%$busca%";
             $stmt = $this->pdo->prepare("SELECT * FROM alunos WHERE nome LIKE ? OR email LIKE ? LIMIT ? OFFSET ?");
-            $stmt->execute([$busca, $busca, $limite, $offset]);
+            $stmt->bindValue(1, $buscaLike, PDO::PARAM_STR);
+            $stmt->bindValue(2, $buscaLike, PDO::PARAM_STR);
+            $stmt->bindValue(3, (int)$limite, PDO::PARAM_INT);
+            $stmt->bindValue(4, (int)$offset, PDO::PARAM_INT);
+            $stmt->execute();
         } 
         else {
             $stmt = $this->pdo->prepare("SELECT * FROM alunos LIMIT ? OFFSET ?");
-            $stmt->execute([$limite, $offset]);
+            $stmt->bindValue(1, (int)$limite, PDO::PARAM_INT);
+            $stmt->bindValue(2, (int)$offset, PDO::PARAM_INT);
+            $stmt->execute();
         }
 
-        return $stmt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+}
+
 
     // Método necessário para funcionar a paginação
     public function countAll($busca = null)
