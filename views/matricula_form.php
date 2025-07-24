@@ -1,9 +1,5 @@
 <?php
 
-echo "ENTROU NA VIEW DE MATRÍCULA<br>";
-ini_set('display_errors', 1);
-error_reporting(E_ALL);
-
 require_once __DIR__ . '/../controllers/AlunoController.php';
 require_once __DIR__ . '/../controllers/CursoController.php';
 require_once __DIR__ . '/../controllers/MatriculaController.php';
