@@ -22,7 +22,7 @@ class Aluno
             $stmt = $this->pdo->query("SELECT * FROM alunos");
          }
 
-    return $stmt->fetchAll(PDO::FETCH_ASSOC);
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Método de paginação
