@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 error_reporting(E_ALL);
 
 require_once __DIR__ . '/../controllers/AlunoController.php';
-require_once __DIR__ . '/../controllers/AreaController.php';
+require_once __DIR__ . '/../controllers/CursoController.php';
 require_once __DIR__ . '/../controllers/MatriculaController.php';
 
 // Instanciando controllers para carregar os dados
