@@ -1,7 +1,7 @@
 <!-- Header do projeto onde contém a NAVbar -->
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
   <div class="container">
-    <a class="navbar-brand" href="index.php">Escola</a>
+    <a class="navbar-brand" href="">Escola</a>
 
     <div class="collapse navbar-collapse">
       <ul class="navbar-nav me-auto">
