@@ -30,11 +30,11 @@ class AlunoController
     }
 
     // Adiciona paginação ao módulo
-    public function paged($pagina = 1, $limite = 5)
+    public function paged($pagina = 1, $limite = 5, $busca = NULL)
     {
         $offset = ($pagina - 1) * $limite;
-        $dados = $this->model->getPaged($offset, $limite);
-        $total = $this->model->countAll();
+        $dados = $this->model->getPaged($offset, $limite, $busca);
+        $total = $this->model->countAll($busca);
         return ['dados' => $dados, 'total' => $total];
     }
 

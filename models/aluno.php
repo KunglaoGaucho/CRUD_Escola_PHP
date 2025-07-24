@@ -26,19 +26,34 @@ class Aluno
     }
 
     // Método de paginação
-    public function getPaged($offset, $limit)
+    public function getPaged($offset, $limite, $busca = null)
     {
-        $stmt = $this->pdo->prepare("SELECT * FROM alunos LIMIT :limit OFFSET :offset");
-        $stmt->bindValue(':limit', (int)$limit, PDO::PARAM_INT);
-        $stmt->bindValue(':offset', (int)$offset, PDO::PARAM_INT);
-        $stmt->execute();
+        if ($busca) {
+            $busca = "%$busca%";
+            $stmt = $this->pdo->prepare("SELECT * FROM alunos WHERE nome LIKE ? OR email LIKE ? LIMIT ? OFFSET ?");
+            $stmt->execute([$busca, $busca, $limite, $offset]);
+        } 
+        else {
+            $stmt = $this->pdo->prepare("SELECT * FROM alunos LIMIT ? OFFSET ?");
+            $stmt->execute([$limite, $offset]);
+        }
+
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     // Método necessário para funcionar a paginação
-    public function countAll()
+    public function countAll($busca = null)
     {
-        return $this->pdo->query("SELECT COUNT(*) FROM alunos")->fetchColumn();
+    if ($busca) {
+        $busca = "%$busca%";
+        $stmt = $this->pdo->prepare("SELECT COUNT(*) as total FROM alunos WHERE nome LIKE ? OR email LIKE ?");
+        $stmt->execute([$busca, $busca]);
+    } 
+    else {
+        $stmt = $this->pdo->query("SELECT COUNT(*) as total FROM alunos");
+    }
+
+    return $stmt->fetch(PDO::FETCH_ASSOC)['total'];
     }
 
     // Método para buscar elementos pelo ID para exclusão e alteração

@@ -3,12 +3,10 @@ require_once '../controllers/AlunoController.php';
 
 $paginaAtual = isset($_GET['pagina']) ? (int)$_GET['pagina'] : 1;
 $limite = 5;
-
 $busca = $_GET['busca'] ?? null;
-$alunos = $controller->index($busca);
 
 $controller = new AlunoController();
-$resultado = $controller->paged($paginaAtual, $limite);
+$resultado = $controller->paged($paginaAtual, $limite, $busca);
 
 $alunos = $resultado['dados'];
 $totalRegistros = $resultado['total'];
